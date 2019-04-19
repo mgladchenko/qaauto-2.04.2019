@@ -1,6 +1,4 @@
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -16,29 +14,17 @@ public class LoginTest {
         driver.get("https://www.linkedin.com");
         Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up ");
 
-        WebElement userEmailField = driver.findElement(By.xpath("//input[@id='login-email']"));
-        WebElement userPasswordField = driver.findElement(By.xpath("//input[@id='login-password']"));
-        WebElement signInButton = driver.findElement(By.xpath("//input[@id='login-submit']"));
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("linkedin.tst.yanina@gmail.com", "Test123!");
 
-        userEmailField.sendKeys("linkedin.tst.yanina@gmail.com");
-        userPasswordField.sendKeys("Test123!");
-        signInButton.click();
+        HomePage homePage = new HomePage(driver);
+        Assert.assertTrue(homePage.isProfileMenuItemDisplayed(), "Home page is not loaded.");
 
-        try {
-            sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        homePage.clickOnProfileMenuItem();
 
-        WebElement profileMenuItem = driver.findElement(By.xpath("//li[@id='profile-nav-item']"));
-        Assert.assertTrue(profileMenuItem.isDisplayed(),
-                "Home page is not loaded.");
-
-        profileMenuItem.click();
-
-        WebElement profileUserName = driver.findElement(By.xpath("//ul[@id='nav-settings__dropdown-options']//h3"));
-        Assert.assertEquals(profileUserName.getText(), "Viktor Pavlik",
+        Assert.assertEquals(homePage.getProfileUserNameText(), "Viktor Pavlik",
                 "Wrong profile user name displayed.");
+        driver.quit();
     }
 
     @Test

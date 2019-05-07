@@ -1,27 +1,8 @@
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class LoginTest {
-    private WebDriver driver;
-    private LoginPage loginPage;
-
-    @BeforeMethod
-    public void beforeMethod() {
-        //System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com");
-        loginPage = new LoginPage(driver);
-    }
-
-    @AfterMethod
-    public void afterMethod() {
-        driver.quit();
-    }
+public class LoginTest extends BaseTest {
 
     @DataProvider
     public Object[][] validDataProvider() {
@@ -36,7 +17,7 @@ public class LoginTest {
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded.");
 
         HomePage homePage = loginPage.login(userEmail, userPassword);
-        Assert.assertTrue(homePage.isProfileMenuItemDisplayed(), "Home page is not loaded.");
+        Assert.assertTrue(homePage.isPageLoaded(), "Home page is not loaded.");
 
         homePage.clickOnProfileMenuItem();
         Assert.assertEquals(homePage.getProfileUserNameText(), "Viktor Pavlik",

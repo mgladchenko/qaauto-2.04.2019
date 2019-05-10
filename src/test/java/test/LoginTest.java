@@ -1,6 +1,10 @@
+package test;
+
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import page.HomePage;
+import page.LoginSubmitPage;
 
 public class LoginTest extends BaseTest {
 
@@ -28,7 +32,7 @@ public class LoginTest extends BaseTest {
     public void negativeLoginWithEmptyFields() {
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded.");
 
-        loginPage.loginToLogin("", "");
+        loginPage.login("", "");
 
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded.");
     }
@@ -48,7 +52,7 @@ public class LoginTest extends BaseTest {
                                              String userPasswordValidationMessage) {
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded.");
 
-        LoginSubmitPage loginSubmitPage = loginPage.loginToLoginSubmit(userEmail, userPassword);
+        LoginSubmitPage loginSubmitPage = loginPage.login(userEmail, userPassword);
 
         Assert.assertTrue(loginSubmitPage.isPageLoaded(), "LoginSubmit page is not loaded.");
 

@@ -1,16 +1,16 @@
+package page;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import static java.lang.Thread.sleep;
 
-public class LoginPage {
-    private WebDriver driver;
+public class LoginPage extends BasePage{
 
     private WebElement userEmailField;
     private WebElement userPasswordField;
     private WebElement signInButton;
-
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -23,7 +23,7 @@ public class LoginPage {
         signInButton = driver.findElement(By.xpath("//input[@id='login-submit']"));
     }
 
-    public HomePage login(String userEmail, String userPassword) {
+    public <GenericPage> GenericPage login(String userEmail, String userPassword) {
         userEmailField.sendKeys(userEmail);
         userPasswordField.sendKeys(userPassword);
         signInButton.click();
@@ -32,31 +32,14 @@ public class LoginPage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return new HomePage(driver);
-    }
-
-    public LoginPage loginToLogin(String userEmail, String userPassword) {
-        userEmailField.sendKeys(userEmail);
-        userPasswordField.sendKeys(userPassword);
-        signInButton.click();
-        try {
-            sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (driver.getCurrentUrl().contains("/feed")) {
+            return (GenericPage) new HomePage(driver);
         }
-        return new LoginPage(driver);
-    }
-
-    public LoginSubmitPage loginToLoginSubmit(String userEmail, String userPassword) {
-        userEmailField.sendKeys(userEmail);
-        userPasswordField.sendKeys(userPassword);
-        signInButton.click();
-        try {
-            sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (driver.getCurrentUrl().contains("/uas/login-submit")) {
+            return (GenericPage) new LoginSubmitPage(driver);
+        } else {
+            return (GenericPage) new LoginPage(driver);
         }
-        return new LoginSubmitPage(driver);
     }
 
     public boolean isPageLoaded() {

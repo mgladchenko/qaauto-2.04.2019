@@ -1,3 +1,5 @@
+package page;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -6,8 +8,7 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchResultsPage {
-    private WebDriver driver;
+public class SearchResultsPage extends BasePage{
 
     private WebElement searchResultsContainer;
     private List<WebElement> searchResultElements;

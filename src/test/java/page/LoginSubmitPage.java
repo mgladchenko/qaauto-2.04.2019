@@ -1,13 +1,13 @@
+package page;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LoginSubmitPage {
+public class LoginSubmitPage extends BasePage{
 
     private WebElement userEmailValidationMessage;
     private WebElement userPasswordValidationMessage;
-
-    WebDriver driver;
 
     public LoginSubmitPage(WebDriver driver) {
         this.driver = driver;

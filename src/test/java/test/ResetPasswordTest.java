@@ -26,13 +26,6 @@ public class ResetPasswordTest extends BaseTest {
                 requestPasswordResetSubmitPage.navigateToLinkFromEmail(userEmail);
         Assert.assertTrue(chooseNewPasswordPage.isPageLoaded(),
                 "ChooseNewPassword page is not loaded.");
-
-
-
-
-
-
-
     }
 
 
